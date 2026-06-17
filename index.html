@@ -6,6 +6,14 @@
   <title>소스라이브 대시보드 허브</title>
 
   <style>
+    :root {
+      --key-color: #FF5F00;
+      --key-color-dark: #E65300;
+      --key-color-light: #FFF0E6;
+      --key-color-hover: #FFE1CC;
+      --key-color-border: #FFC299;
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -36,10 +44,10 @@
       align-items: center;
       padding: 6px 12px;
       border-radius: 999px;
-      background: #eef2ff;
-      color: #4f46e5;
+      background: var(--key-color-light);
+      color: var(--key-color);
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 16px;
     }
 
@@ -79,8 +87,8 @@
 
     .card:hover {
       transform: translateY(-4px);
-      border-color: #4f46e5;
-      box-shadow: 0 16px 36px rgba(79, 70, 229, 0.14);
+      border-color: var(--key-color);
+      box-shadow: 0 16px 36px rgba(255, 95, 0, 0.16);
     }
 
     .icon {
@@ -94,20 +102,11 @@
       margin-bottom: 20px;
     }
 
-    .blue {
-      background: #eff6ff;
-    }
-
-    .purple {
-      background: #f5f3ff;
-    }
-
-    .green {
-      background: #f0fdf4;
-    }
-
+    .blue,
+    .purple,
+    .green,
     .orange {
-      background: #fff7ed;
+      background: var(--key-color-light);
     }
 
     .card-title {
@@ -125,20 +124,25 @@
     }
 
     .card-foot {
-      margin-top: auto;
-      padding-top: 22px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+  margin-top: auto;
+  padding-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.card-foot .edit-btn {
+  margin-left: auto;
+}
 
     .main-link {
       display: inline-flex;
       align-items: center;
       border: 0;
       background: transparent;
-      color: #4f46e5;
+      color: var(--key-color);
       font-size: 13px;
       font-weight: 800;
       cursor: pointer;
@@ -151,24 +155,25 @@
       text-decoration: underline;
     }
 
-    .script-mini-btn {
+    .edit-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 6px 10px;
+      padding: 7px 12px;
       border-radius: 999px;
-      border: 0;
-      background: #eef2ff;
-      color: #4338ca;
+      border: 1px solid var(--key-color-border);
+      background: var(--key-color-light);
+      color: var(--key-color);
       font-size: 12px;
       font-weight: 800;
       cursor: pointer;
       text-decoration: none;
       font-family: inherit;
+      white-space: nowrap;
     }
 
-    .script-mini-btn:hover {
-      background: #e0e7ff;
+    .edit-btn:hover {
+      background: var(--key-color-hover);
     }
 
     .data-shortcuts {
@@ -245,7 +250,7 @@
       border: 0;
       border-radius: 999px;
       padding: 9px 14px;
-      background: #4f46e5;
+      background: var(--key-color);
       color: #ffffff;
       font-size: 13px;
       font-weight: 800;
@@ -255,18 +260,7 @@
     }
 
     .data-shortcut-actions button:hover {
-      background: #4338ca;
-    }
-
-    .data-shortcut-actions button.small {
-      padding: 7px 11px;
-      background: #eef2ff;
-      color: #4338ca;
-      font-size: 12px;
-    }
-
-    .data-shortcut-actions button.small:hover {
-      background: #e0e7ff;
+      background: var(--key-color-dark);
     }
 
     .notice {
@@ -335,7 +329,7 @@
           </div>
           <div class="card-foot">
             <button class="main-link" onclick="openDashboard('live')">대시보드 열기 →</button>
-            <button class="script-mini-btn" onclick="openDashboardScript('live')">Apps Script</button>
+            <button class="edit-btn" onclick="openDashboardScript('live')">수정하기</button>
           </div>
         </div>
 
@@ -347,7 +341,7 @@
           </div>
           <div class="card-foot">
             <button class="main-link" onclick="openDashboard('depth')">분석 화면 열기 →</button>
-            <button class="script-mini-btn" onclick="openDashboardScript('depth')">Apps Script</button>
+            <button class="edit-btn" onclick="openDashboardScript('depth')">수정하기</button>
           </div>
         </div>
 
@@ -359,7 +353,7 @@
           </div>
           <div class="card-foot">
             <button class="main-link" onclick="openDashboard('client')">고객사 현황 열기 →</button>
-            <button class="script-mini-btn" onclick="openDashboardScript('client')">Apps Script</button>
+            <button class="edit-btn" onclick="openDashboardScript('client')">수정하기</button>
           </div>
         </div>
 
@@ -371,7 +365,7 @@
           </div>
           <div class="card-foot">
             <button class="main-link" onclick="openDashboard('chatbot')">챗봇 열기 →</button>
-            <button class="script-mini-btn" onclick="openDashboardScript('chatbot')">Apps Script</button>
+            <button class="edit-btn" onclick="openDashboardScript('chatbot')">수정하기</button>
           </div>
         </div>
       </section>
@@ -379,7 +373,7 @@
       <section class="data-shortcuts">
         <div class="data-shortcuts-header">
           <h2>데이터 바로가기</h2>
-          <p>원본 시트와 연결된 Apps Script를 빠르게 확인합니다.</p>
+          <p>원본 시트를 빠르게 확인합니다.</p>
         </div>
 
         <div class="data-shortcuts-grid">
@@ -390,7 +384,6 @@
             </div>
             <div class="data-shortcut-actions">
               <button onclick="openDataSheet('live')">시트 열기</button>
-              <button class="small" onclick="openDataScript('live')">Apps Script</button>
             </div>
           </div>
 
@@ -401,7 +394,6 @@
             </div>
             <div class="data-shortcut-actions">
               <button onclick="openDataSheet('product')">시트 열기</button>
-              <button class="small" onclick="openDataScript('product')">Apps Script</button>
             </div>
           </div>
 
@@ -412,7 +404,6 @@
             </div>
             <div class="data-shortcut-actions">
               <button onclick="openDataSheet('admin')">시트 열기</button>
-              <button class="small" onclick="openDataScript('admin')">Apps Script</button>
             </div>
           </div>
         </div>
@@ -447,16 +438,13 @@
       },
       data: {
         live: {
-          sheet: 'https://docs.google.com/spreadsheets/d/1GPKUy7s9ou1Zn4kzZKqHApDYu8_1gAoy-pGeQJksHYs/edit',
-          script: 'https://script.google.com/home/projects/19kN9LE-UqU8x78vSvp7pVJMv4OVzev80aMNnlhjcoE-K1SmLc_UpCWF6/edit'
+          sheet: 'https://docs.google.com/spreadsheets/d/1GPKUy7s9ou1Zn4kzZKqHApDYu8_1gAoy-pGeQJksHYs/edit'
         },
         product: {
-          sheet: 'https://docs.google.com/spreadsheets/d/1o_ujPToBQN9OXN1ufXhEMEi4ry8cF2xYPSXOFmHco2k/edit',
-          script: 'https://script.google.com/home/projects/1KozUsgtEd1ML6s24YLkl13vQLXi6BUNx-qTiAj5QDR0VN2MqaIcCAn4W/edit'
+          sheet: 'https://docs.google.com/spreadsheets/d/1o_ujPToBQN9OXN1ufXhEMEi4ry8cF2xYPSXOFmHco2k/edit'
         },
         admin: {
-          sheet: 'https://docs.google.com/spreadsheets/d/1Yxpxvw8wIXiQfDKRMLoor1LRozCyVYoj25MG_mwmAEA/edit',
-          script: 'https://script.google.com/u/0/home/projects/1qY2f-bErbBica-0bYx1ugQXOOJS5G2Zz5pcjAVTGKLS5WNAF4jNaFNqO/edit'
+          sheet: 'https://docs.google.com/spreadsheets/d/1Yxpxvw8wIXiQfDKRMLoor1LRozCyVYoj25MG_mwmAEA/edit'
         }
       }
     };
@@ -473,11 +461,6 @@
 
     function openDataSheet(key) {
       const url = HUB_LINKS.data[key].sheet;
-      window.open(url, '_blank');
-    }
-
-    function openDataScript(key) {
-      const url = HUB_LINKS.data[key].script;
       window.open(url, '_blank');
     }
   </script>
