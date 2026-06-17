@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -65,7 +64,8 @@
     }
 
     .card {
-      display: block;
+      display: flex;
+      flex-direction: column;
       text-decoration: none;
       color: inherit;
       background: #ffffff;
@@ -74,6 +74,7 @@
       padding: 26px;
       box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
       transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+      min-height: 240px;
     }
 
     .card:hover {
@@ -124,10 +125,148 @@
     }
 
     .card-foot {
-      margin-top: 22px;
-      font-size: 13px;
-      font-weight: 700;
+      margin-top: auto;
+      padding-top: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .main-link {
+      display: inline-flex;
+      align-items: center;
+      border: 0;
+      background: transparent;
       color: #4f46e5;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .main-link:hover {
+      text-decoration: underline;
+    }
+
+    .script-mini-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 0;
+      background: #eef2ff;
+      color: #4338ca;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .script-mini-btn:hover {
+      background: #e0e7ff;
+    }
+
+    .data-shortcuts {
+      margin-top: 34px;
+      margin-bottom: 24px;
+      padding: 24px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+    }
+
+    .data-shortcuts-header {
+      margin-bottom: 18px;
+    }
+
+    .data-shortcuts-header h2 {
+      font-size: 22px;
+      font-weight: 900;
+      color: #111827;
+      margin: 0 0 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .data-shortcuts-header p {
+      font-size: 14px;
+      color: #6b7280;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .data-shortcuts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .data-shortcut-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px;
+      background: #f8f9fc;
+      border: 1px solid #eef2f7;
+      border-radius: 18px;
+    }
+
+    .data-shortcut-card strong {
+      display: block;
+      font-size: 17px;
+      font-weight: 900;
+      color: #111827;
+      margin-bottom: 5px;
+    }
+
+    .data-shortcut-card span {
+      display: block;
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    .data-shortcut-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .data-shortcut-actions button {
+      border: 0;
+      border-radius: 999px;
+      padding: 9px 14px;
+      background: #4f46e5;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .data-shortcut-actions button:hover {
+      background: #4338ca;
+    }
+
+    .data-shortcut-actions button.small {
+      padding: 7px 11px;
+      background: #eef2ff;
+      color: #4338ca;
+      font-size: 12px;
+    }
+
+    .data-shortcut-actions button.small:hover {
+      background: #e0e7ff;
     }
 
     .notice {
@@ -139,6 +278,21 @@
       color: #6b7280;
       font-size: 13px;
       line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .data-shortcuts-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .data-shortcut-card {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .data-shortcut-actions {
+        justify-content: flex-start;
+      }
     }
 
     @media (max-width: 760px) {
@@ -173,48 +327,159 @@
       </section>
 
       <section class="grid">
-        <a class="card" href="여기에_소스라이브_운영현황_URL" target="_blank" rel="noopener">
+        <div class="card">
           <div class="icon blue">📺</div>
           <div class="card-title">소스라이브 운영현황</div>
           <div class="card-desc">
             방송 수, UV/PV, 클릭률, 주문금액, 기간별 운영 인사이트를 확인합니다.
           </div>
-          <div class="card-foot">대시보드 열기 →</div>
-        </a>
+          <div class="card-foot">
+            <button class="main-link" onclick="openDashboard('live')">대시보드 열기 →</button>
+            <button class="script-mini-btn" onclick="openDashboardScript('live')">Apps Script</button>
+          </div>
+        </div>
 
-        <a class="card" href="여기에_라이브_데이터_심층분석_URL" target="_blank" rel="noopener">
+        <div class="card">
           <div class="icon purple">📊</div>
           <div class="card-title">라이브 데이터 심층 분석</div>
           <div class="card-desc">
             카테고리, 방송 상세, 기능 사용률, ReLive, 전환 퍼널을 분석합니다.
           </div>
-          <div class="card-foot">분석 화면 열기 →</div>
-        </a>
+          <div class="card-foot">
+            <button class="main-link" onclick="openDashboard('depth')">분석 화면 열기 →</button>
+            <button class="script-mini-btn" onclick="openDashboardScript('depth')">Apps Script</button>
+          </div>
+        </div>
 
-        <a class="card" href="여기에_고객사_현황_URL" target="_blank" rel="noopener">
+        <div class="card">
           <div class="icon green">🏢</div>
           <div class="card-title">고객사 현황</div>
           <div class="card-desc">
             고객사별 계약, 운영 상태, 담당자, 사용 현황 데이터를 확인합니다.
           </div>
-          <div class="card-foot">고객사 현황 열기 →</div>
-        </a>
+          <div class="card-foot">
+            <button class="main-link" onclick="openDashboard('client')">고객사 현황 열기 →</button>
+            <button class="script-mini-btn" onclick="openDashboardScript('client')">Apps Script</button>
+          </div>
+        </div>
 
-        <a class="card" href="여기에_챗봇_URL" target="_blank" rel="noopener">
+        <div class="card">
           <div class="icon orange">🤖</div>
           <div class="card-title">챗봇</div>
           <div class="card-desc">
             방송 데이터와 운영 현황을 자연어로 질문하고 분석 결과를 확인합니다.
           </div>
-          <div class="card-foot">챗봇 열기 →</div>
-        </a>
+          <div class="card-foot">
+            <button class="main-link" onclick="openDashboard('chatbot')">챗봇 열기 →</button>
+            <button class="script-mini-btn" onclick="openDashboardScript('chatbot')">Apps Script</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="data-shortcuts">
+        <div class="data-shortcuts-header">
+          <h2>데이터 바로가기</h2>
+          <p>원본 시트와 연결된 Apps Script를 빠르게 확인합니다.</p>
+        </div>
+
+        <div class="data-shortcuts-grid">
+          <div class="data-shortcut-card">
+            <div>
+              <strong>라이브 데이터</strong>
+              <span>방송 성과 원본 시트</span>
+            </div>
+            <div class="data-shortcut-actions">
+              <button onclick="openDataSheet('live')">시트 열기</button>
+              <button class="small" onclick="openDataScript('live')">Apps Script</button>
+            </div>
+          </div>
+
+          <div class="data-shortcut-card">
+            <div>
+              <strong>상품 데이터</strong>
+              <span>상품/주문 데이터 시트</span>
+            </div>
+            <div class="data-shortcut-actions">
+              <button onclick="openDataSheet('product')">시트 열기</button>
+              <button class="small" onclick="openDataScript('product')">Apps Script</button>
+            </div>
+          </div>
+
+          <div class="data-shortcut-card">
+            <div>
+              <strong>어드민 데이터</strong>
+              <span>고객사/운영 관리 시트</span>
+            </div>
+            <div class="data-shortcut-actions">
+              <button onclick="openDataSheet('admin')">시트 열기</button>
+              <button class="small" onclick="openDataScript('admin')">Apps Script</button>
+            </div>
+          </div>
+        </div>
       </section>
 
       <div class="notice">
-        ※ 각 버튼 URL은 Apps Script 웹앱 배포 URL로 교체하면 됩니다.
-        고객사 현황은 별도 Apps Script 생성 후 URL만 이 페이지에 추가하면 됩니다.
+        ※ 1차 배포 URL 기준으로 연결되어 있습니다. 이후 새 배포 URL을 만들 경우 이 HTML의 URL만 교체하면 됩니다.
+        기존 배포 ID로 수정 배포하면 URL은 유지됩니다.
       </div>
     </div>
   </main>
+
+  <script>
+    const HUB_LINKS = {
+      dashboards: {
+        live: {
+          webapp: 'https://script.google.com/a/macros/mobidoo.co.kr/s/AKfycbw3_ST3XVv4P7qeOFZUag_k7Xoth_LVjVQG6uVNjKcMS5hMbOGdGjQMKniBTPA_zoPZ/exec',
+          script: 'https://script.google.com/home/projects/19kN9LE-UqU8x78vSvp7pVJMv4OVzev80aMNnlhjcoE-K1SmLc_UpCWF6/edit'
+        },
+        depth: {
+          webapp: 'https://script.google.com/a/macros/mobidoo.co.kr/s/AKfycbx4VD4zQqSEBLlQ9o4P34XFR8gaVSmAvIcSsd6i028t9S1VB_HIdjYXbKq0kaOXx-I3/exec',
+          script: 'https://script.google.com/home/projects/1KozUsgtEd1ML6s24YLkl13vQLXi6BUNx-qTiAj5QDR0VN2MqaIcCAn4W/edit'
+        },
+        client: {
+          webapp: 'https://script.google.com/a/macros/mobidoo.co.kr/s/AKfycbxOvVGSbCWwzuj37zC5yoUC3qOu5OQnj8HVb5SD95DeMpu3MUxpkujGtjP1p1wtQL8X/exec',
+          script: 'https://script.google.com/u/0/home/projects/1qY2f-bErbBica-0bYx1ugQXOOJS5G2Zz5pcjAVTGKLS5WNAF4jNaFNqO/edit'
+        },
+        chatbot: {
+          webapp: 'https://script.google.com/a/macros/mobidoo.co.kr/s/AKfycbyRrcRuHx9_JBRs4UEzIwyp3cyrx_DX3tZSAsQ4WB5di0gmZzcUocQ-U1AbIWi8GstRRg/exec',
+          script: 'https://script.google.com/home/projects/16Wm6fFIhcK7crC0GmdkANHrjJaPYFRcQwl7fmPYwDmAhAgXS8zkY7DeK/edit'
+        }
+      },
+      data: {
+        live: {
+          sheet: 'https://docs.google.com/spreadsheets/d/1GPKUy7s9ou1Zn4kzZKqHApDYu8_1gAoy-pGeQJksHYs/edit',
+          script: 'https://script.google.com/home/projects/19kN9LE-UqU8x78vSvp7pVJMv4OVzev80aMNnlhjcoE-K1SmLc_UpCWF6/edit'
+        },
+        product: {
+          sheet: 'https://docs.google.com/spreadsheets/d/1o_ujPToBQN9OXN1ufXhEMEi4ry8cF2xYPSXOFmHco2k/edit',
+          script: 'https://script.google.com/home/projects/1KozUsgtEd1ML6s24YLkl13vQLXi6BUNx-qTiAj5QDR0VN2MqaIcCAn4W/edit'
+        },
+        admin: {
+          sheet: 'https://docs.google.com/spreadsheets/d/1Yxpxvw8wIXiQfDKRMLoor1LRozCyVYoj25MG_mwmAEA/edit',
+          script: 'https://script.google.com/u/0/home/projects/1qY2f-bErbBica-0bYx1ugQXOOJS5G2Zz5pcjAVTGKLS5WNAF4jNaFNqO/edit'
+        }
+      }
+    };
+
+    function openDashboard(key) {
+      const url = HUB_LINKS.dashboards[key].webapp;
+      window.open(url, '_blank');
+    }
+
+    function openDashboardScript(key) {
+      const url = HUB_LINKS.dashboards[key].script;
+      window.open(url, '_blank');
+    }
+
+    function openDataSheet(key) {
+      const url = HUB_LINKS.data[key].sheet;
+      window.open(url, '_blank');
+    }
+
+    function openDataScript(key) {
+      const url = HUB_LINKS.data[key].script;
+      window.open(url, '_blank');
+    }
+  </script>
 </body>
 </html>
