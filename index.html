@@ -1,1 +1,220 @@
 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>소스라이브 대시보드 허브</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", sans-serif;
+      background: #f7f8fc;
+      color: #111827;
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 56px 24px;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .header {
+      margin-bottom: 36px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4f46e5;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.25;
+      letter-spacing: -0.8px;
+    }
+
+    .subtitle {
+      margin-top: 12px;
+      font-size: 16px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #4f46e5;
+      box-shadow: 0 16px 36px rgba(79, 70, 229, 0.14);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .blue {
+      background: #eff6ff;
+    }
+
+    .purple {
+      background: #f5f3ff;
+    }
+
+    .green {
+      background: #f0fdf4;
+    }
+
+    .orange {
+      background: #fff7ed;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.6;
+      min-height: 44px;
+    }
+
+    .card-foot {
+      margin-top: 22px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #4f46e5;
+    }
+
+    .notice {
+      margin-top: 28px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      background: #ffffff;
+      border: 1px dashed #d1d5db;
+      color: #6b7280;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        padding: 36px 18px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <div class="container">
+      <section class="header">
+        <div class="eyebrow">MOBIDOO CSM DASHBOARD</div>
+        <h1>소스라이브 대시보드 허브</h1>
+        <p class="subtitle">
+          운영 현황, 라이브 데이터 심층 분석, 고객사 현황, 챗봇을 한 곳에서 확인합니다.
+        </p>
+      </section>
+
+      <section class="grid">
+        <a class="card" href="여기에_소스라이브_운영현황_URL" target="_blank" rel="noopener">
+          <div class="icon blue">📺</div>
+          <div class="card-title">소스라이브 운영현황</div>
+          <div class="card-desc">
+            방송 수, UV/PV, 클릭률, 주문금액, 기간별 운영 인사이트를 확인합니다.
+          </div>
+          <div class="card-foot">대시보드 열기 →</div>
+        </a>
+
+        <a class="card" href="여기에_라이브_데이터_심층분석_URL" target="_blank" rel="noopener">
+          <div class="icon purple">📊</div>
+          <div class="card-title">라이브 데이터 심층 분석</div>
+          <div class="card-desc">
+            카테고리, 방송 상세, 기능 사용률, ReLive, 전환 퍼널을 분석합니다.
+          </div>
+          <div class="card-foot">분석 화면 열기 →</div>
+        </a>
+
+        <a class="card" href="여기에_고객사_현황_URL" target="_blank" rel="noopener">
+          <div class="icon green">🏢</div>
+          <div class="card-title">고객사 현황</div>
+          <div class="card-desc">
+            고객사별 계약, 운영 상태, 담당자, 사용 현황 데이터를 확인합니다.
+          </div>
+          <div class="card-foot">고객사 현황 열기 →</div>
+        </a>
+
+        <a class="card" href="여기에_챗봇_URL" target="_blank" rel="noopener">
+          <div class="icon orange">🤖</div>
+          <div class="card-title">챗봇</div>
+          <div class="card-desc">
+            방송 데이터와 운영 현황을 자연어로 질문하고 분석 결과를 확인합니다.
+          </div>
+          <div class="card-foot">챗봇 열기 →</div>
+        </a>
+      </section>
+
+      <div class="notice">
+        ※ 각 버튼 URL은 Apps Script 웹앱 배포 URL로 교체하면 됩니다.
+        고객사 현황은 별도 Apps Script 생성 후 URL만 이 페이지에 추가하면 됩니다.
+      </div>
+    </div>
+  </main>
+</body>
+</html>
