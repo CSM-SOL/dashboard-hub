@@ -24,8 +24,7 @@
     .container { max-width: 1080px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; flex: 1; min-height: 0; }
 
     /* Header */
-    .header { margin-bottom: 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .header-text { flex: 1; min-width: 0; }
+    .header { margin-bottom: 20px; }
     .eyebrow {
       display: inline-flex; align-items: center;
       padding: 3px 10px; border-radius: 999px;
@@ -35,47 +34,61 @@
     h1 { margin: 0; font-size: 26px; line-height: 1.2; letter-spacing: -0.5px; }
     .subtitle { margin-top: 5px; font-size: 13px; color: #6b7280; line-height: 1.4; }
 
-    /* Dashboard Cards */
+    /* Dashboard Cards — 2열, 세로로 키움 */
     .grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
       margin-bottom: 18px;
     }
     .card {
       display: flex; flex-direction: column;
       background: #ffffff; border: 1px solid #e5e7eb;
-      border-radius: 16px; padding: 20px;
+      border-radius: 16px; padding: 24px;
       box-shadow: 0 4px 12px rgba(15,23,42,0.06);
       transition: transform 0.16s, box-shadow 0.16s, border-color 0.16s;
+      min-height: 168px;
     }
     .card:hover {
       transform: translateY(-3px);
       border-color: var(--key-color);
       box-shadow: 0 10px 24px rgba(255,95,0,0.14);
     }
+    /* 작업중 카드: 흐리게 */
+    .card.wip {
+      opacity: 0.62;
+      pointer-events: none;
+    }
+    .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
     .icon {
-      width: 36px; height: 36px; border-radius: 10px;
+      width: 38px; height: 38px; border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px; margin-bottom: 12px;
+      font-size: 20px; flex-shrink: 0;
       background: var(--key-color-light);
     }
-    .card-title { font-size: 14px; font-weight: 800; margin-bottom: 5px; letter-spacing: -0.2px; }
-    .card-desc { font-size: 12px; color: #6b7280; line-height: 1.5; flex: 1; }
+    .wip-badge {
+      display: inline-flex; align-items: center;
+      padding: 3px 8px; border-radius: 999px;
+      background: #f3f4f6; color: #9ca3af;
+      font-size: 11px; font-weight: 700;
+      border: 1px solid #e5e7eb;
+    }
+    .card-title { font-size: 17px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.3px; }
+    .card-desc { font-size: 13px; color: #6b7280; line-height: 1.55; flex: 1; }
     .card-foot {
-      margin-top: 12px; padding-top: 10px;
+      margin-top: 16px; padding-top: 12px;
       border-top: 1px solid #f3f4f6;
       display: flex; align-items: center; justify-content: space-between; gap: 8px;
     }
     .main-link {
       border: 0; background: transparent; color: var(--key-color);
-      font-size: 12px; font-weight: 800; cursor: pointer; padding: 0;
+      font-size: 13px; font-weight: 800; cursor: pointer; padding: 0;
       font-family: inherit;
     }
     .main-link:hover { text-decoration: underline; }
     .edit-btn {
       display: inline-flex; align-items: center; justify-content: center;
-      padding: 4px 10px; border-radius: 999px;
+      padding: 5px 12px; border-radius: 999px;
       border: 1px solid var(--key-color-border);
       background: var(--key-color-light); color: var(--key-color);
       font-size: 11px; font-weight: 800; cursor: pointer;
@@ -85,7 +98,7 @@
 
     /* Data Shortcuts */
     .data-shortcuts {
-      padding: 22px 24px;
+      padding: 20px 22px;
       background: #ffffff; border: 1px solid #e5e7eb;
       border-radius: 16px; box-shadow: 0 4px 16px rgba(15,23,42,0.05);
       margin-bottom: 14px;
@@ -153,7 +166,7 @@
 
     .source-note {
       display: flex; align-items: center; gap: 8px;
-      margin-top: 8px; padding: 8px 12px;
+      margin-top: 10px; padding: 8px 12px;
       border: 1px dashed #d1d5db; border-radius: 8px;
       background: #fafafa; font-size: 11px; color: #6b7280; line-height: 1.5;
     }
@@ -165,12 +178,9 @@
       color: #9ca3af; font-size: 11px; line-height: 1.5;
     }
 
-    @media (max-width: 900px) {
-      .grid { grid-template-columns: repeat(2, 1fr); }
-      .tool-row, .sheet-row { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 600px) {
+    @media (max-width: 760px) {
       .grid { grid-template-columns: 1fr; }
+      .tool-row, .sheet-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -179,16 +189,16 @@
     <div class="container">
 
       <section class="header">
-        <div class="header-text">
-          <div class="eyebrow">MOBIDOO CSM DASHBOARD</div>
-          <h1>소스라이브 대시보드 허브</h1>
-          <p class="subtitle">운영 현황, 라이브 데이터 심층 분석, 고객사 현황, 챗봇을 한 곳에서 확인합니다.</p>
-        </div>
+        <div class="eyebrow">MOBIDOO CSM DASHBOARD</div>
+        <h1>소스라이브 대시보드 허브</h1>
+        <p class="subtitle">운영 현황, 라이브 데이터 심층 분석, 고객사 현황, 챗봇을 한 곳에서 확인합니다.</p>
       </section>
 
       <section class="grid">
         <div class="card">
-          <div class="icon">📺</div>
+          <div class="card-header">
+            <div class="icon">📺</div>
+          </div>
           <div class="card-title">소스라이브 운영현황</div>
           <div class="card-desc">방송 수, UV/PV, 클릭률, 주문금액, 기간별 운영 인사이트를 확인합니다.</div>
           <div class="card-foot">
@@ -196,8 +206,11 @@
             <button class="edit-btn" onclick="openDashboardScript('live')">수정하기</button>
           </div>
         </div>
+
         <div class="card">
-          <div class="icon">📊</div>
+          <div class="card-header">
+            <div class="icon">📊</div>
+          </div>
           <div class="card-title">라이브 데이터 심층 분석</div>
           <div class="card-desc">카테고리, 방송 상세, 기능 사용률, ReLive, 전환 퍼널을 분석합니다.</div>
           <div class="card-foot">
@@ -205,22 +218,30 @@
             <button class="edit-btn" onclick="openDashboardScript('depth')">수정하기</button>
           </div>
         </div>
-        <div class="card">
-          <div class="icon">🏢</div>
+
+        <div class="card wip">
+          <div class="card-header">
+            <div class="icon">🏢</div>
+            <span class="wip-badge">작업중</span>
+          </div>
           <div class="card-title">고객사 현황</div>
           <div class="card-desc">고객사별 계약, 운영 상태, 담당자, 사용 현황 데이터를 확인합니다.</div>
           <div class="card-foot">
-            <button class="main-link" onclick="openDashboard('client')">고객사 현황 열기 →</button>
-            <button class="edit-btn" onclick="openDashboardScript('client')">수정하기</button>
+            <button class="main-link">고객사 현황 열기 →</button>
+            <button class="edit-btn">수정하기</button>
           </div>
         </div>
-        <div class="card">
-          <div class="icon">🤖</div>
+
+        <div class="card wip">
+          <div class="card-header">
+            <div class="icon">🤖</div>
+            <span class="wip-badge">작업중</span>
+          </div>
           <div class="card-title">챗봇</div>
           <div class="card-desc">방송 데이터와 운영 현황을 자연어로 질문하고 분석 결과를 확인합니다.</div>
           <div class="card-foot">
-            <button class="main-link" onclick="openDashboard('chatbot')">챗봇 열기 →</button>
-            <button class="edit-btn" onclick="openDashboardScript('chatbot')">수정하기</button>
+            <button class="main-link">챗봇 열기 →</button>
+            <button class="edit-btn">수정하기</button>
           </div>
         </div>
       </section>
