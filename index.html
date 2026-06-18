@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
@@ -464,5 +464,86 @@
       window.open(url, '_blank');
     }
   </script>
+
+<!-- github-hub-extra-shortcuts-runtime-v1 -->
+<style>
+  .data-shortcut-note {
+    display: block;
+    margin-top: 7px;
+    font-size: 11px;
+    line-height: 1.45;
+    color: #6b7280;
+  }
+  .data-shortcut-card.external-shortcut {
+    cursor: pointer;
+  }
+  .data-shortcut-card.external-shortcut:hover {
+    transform: translateY(-2px);
+  }
+</style>
+<script>
+(function(){
+  const TEXT = {
+    supersetTitle: '\uC288\uD37C\uC14B \uBC14\uB85C\uAC00\uAE30',
+    supersetDesc: '\uB370\uC774\uD130 \uC870\uD68C\u00B7\uCD94\uCD9C\uC744 \uC704\uD55C Superset \uB85C\uADF8\uC778 \uD398\uC774\uC9C0',
+    driveTitle: '\uC790\uB3D9 \uC5C5\uB85C\uB4DC \uACF5\uC720 \uB4DC\uB77C\uC774\uBE0C',
+    driveDesc: '\uC790\uB3D9 \uC5C5\uB85C\uB4DC \uD30C\uC77C \uBC0F \uACF5\uC720 \uC790\uB8CC \uD655\uC778',
+    open: '\uC5F4\uAE30 \u2192',
+    liveNote: '\uB77C\uC774\uBE0C\uB370\uC774\uD130 : csv \uD30C\uC77C\uBA85',
+    productNote: '\uC0C1\uD488 \uB370\uC774\uD130: pd + csv \uD30C\uC77C\uBA85',
+    adminNote: '\uC5B4\uB4DC\uBBFC \uB370\uC774\uD130 : \uC18C\uC2A4\uB77C\uC774\uBE0C \uC5B4\uB4DC\uBBFC \uC288\uD37C\uAD00\uB9AC\uC790 \uAD8C\uD55C\uC5D0\uC11C \uB2E4\uC6B4\uB85C\uB4DC'
+  };
+  const URLS = {
+    superset: 'https://superset.sauceflex.com/superset/welcome/',
+    drive: 'https://drive.google.com/drive/folders/1ezZieoOJXKVP7rs2kWaWe4aYfIf2maSF'
+  };
+
+  function addNote(card, note) {
+    if (!card || card.querySelector('.data-shortcut-note')) return;
+    const el = document.createElement('span');
+    el.className = 'data-shortcut-note';
+    el.textContent = note;
+    card.appendChild(el);
+  }
+
+  function makeCard(title, desc, url) {
+    const card = document.createElement('div');
+    card.className = 'data-shortcut-card external-shortcut';
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.innerHTML = '<div><strong>' + title + '</strong><span>' + desc + '</span></div><button class="main-link" type="button">' + TEXT.open + '</button>';
+    function openIt() { window.open(url, '_blank', 'noopener'); }
+    card.addEventListener('click', openIt);
+    card.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openIt(); } });
+    const btn = card.querySelector('button');
+    if (btn) btn.addEventListener('click', function(e){ e.stopPropagation(); openIt(); });
+    return card;
+  }
+
+  function applyHubExtraShortcuts() {
+    const grid = document.querySelector('.data-shortcuts-grid');
+    if (!grid || grid.dataset.extraShortcutsApplied === '1') return;
+    grid.dataset.extraShortcutsApplied = '1';
+
+    Array.from(grid.querySelectorAll('.data-shortcut-card')).forEach(function(card){
+      const text = card.textContent || '';
+      if (text.indexOf('\uB77C\uC774\uBE0C \uB370\uC774\uD130') > -1) addNote(card, TEXT.liveNote);
+      if (text.indexOf('\uC0C1\uD488 \uB370\uC774\uD130') > -1) addNote(card, TEXT.productNote);
+      if (text.indexOf('\uC5B4\uB4DC\uBBFC \uB370\uC774\uD130') > -1) addNote(card, TEXT.adminNote);
+    });
+
+    grid.appendChild(makeCard(TEXT.supersetTitle, TEXT.supersetDesc, URLS.superset));
+    grid.appendChild(makeCard(TEXT.driveTitle, TEXT.driveDesc, URLS.drive));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyHubExtraShortcuts);
+  } else {
+    applyHubExtraShortcuts();
+  }
+})();
+</script>
+<!-- /github-hub-extra-shortcuts-runtime-v1 -->
 </body>
 </html>
+
