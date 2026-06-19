@@ -152,6 +152,9 @@
     .sheet-info strong { display: block; font-size: 13px; font-weight: 900; color: #111827; margin-bottom: 2px; }
     .sheet-info span { display: block; font-size: 11px; color: #6b7280; }
     .sheet-note { display: block; font-size: 10px; color: var(--key-color); font-weight: 700; margin-top: 2px; }
+    .last-updated { display: block; font-size: 10px; color: #9ca3af; margin-top: 4px; }
+    .last-updated.loaded { color: #6b7280; }
+    .last-updated.error { color: #f87171; }
     .sheet-btn {
       flex-shrink: 0; padding: 6px 12px;
       background: transparent; color: var(--key-color);
@@ -275,6 +278,7 @@
               <strong>라이브 데이터</strong>
               <span>방송 성과 원본 시트</span>
               <em class="sheet-note">csv 파일명</em>
+              <em class="last-updated" id="updated-live">업데이트 확인 중...</em>
             </div>
             <button class="sheet-btn" onclick="openDataSheet('live')">시트 열기</button>
           </div>
@@ -283,6 +287,7 @@
               <strong>상품 데이터</strong>
               <span>상품/주문 데이터 시트</span>
               <em class="sheet-note">pd + csv 파일명</em>
+              <em class="last-updated" id="updated-product">업데이트 확인 중...</em>
             </div>
             <button class="sheet-btn" onclick="openDataSheet('product')">시트 열기</button>
           </div>
@@ -291,6 +296,7 @@
               <strong>어드민 데이터</strong>
               <span>고객사/운영 관리 시트</span>
               <em class="sheet-note">슈퍼관리자 권한에서 다운로드</em>
+              <em class="last-updated" id="updated-admin">업데이트 확인 중...</em>
             </div>
             <button class="sheet-btn" onclick="openDataSheet('admin')">시트 열기</button>
           </div>
@@ -318,14 +324,42 @@
         chatbot: { webapp: 'https://script.google.com/a/macros/mobidoo.co.kr/s/AKfycbyRrcRuHx9_JBRs4UEzIwyp3cyrx_DX3tZSAsQ4WB5di0gmZzcUocQ-U1AbIWi8GstRRg/exec', script: 'https://script.google.com/home/projects/16Wm6fFIhcK7crC0GmdkANHrjJaPYFRcQwl7fmPYwDmAhAgXS8zkY7DeK/edit' }
       },
       data: {
-        live:    { sheet: 'https://docs.google.com/spreadsheets/d/1uL3B6P3EGBxP-ekA0PBXCoMUnnAH_ylEZVYjgu9o51U/edit' },
-        product: { sheet: 'https://docs.google.com/spreadsheets/d/1o_ujPToBQN9OXN1ufXhEMEi4ry8cF2xYPSXOFmHco2k/edit' },
-        admin:   { sheet: 'https://docs.google.com/spreadsheets/d/1Yxpxvw8wIXiQfDKRMLoor1LRozCyVYoj25MG_mwmAEA/edit' }
+        live:    { sheet: 'https://docs.google.com/spreadsheets/d/1uL3B6P3EGBxP-ekA0PBXCoMUnnAH_ylEZVYjgu9o51U/edit',
+                   api:   'https://script.google.com/macros/s/AKfycbwvWgycT4M7KlScnY9UDhfc0x5lbGvAUoAq9h4olUyZPCh0smwBjHHDzJSadN_x0P7X/exec' },
+        product: { sheet: 'https://docs.google.com/spreadsheets/d/1o_ujPToBQN9OXN1ufXhEMEi4ry8cF2xYPSXOFmHco2k/edit',
+                   api:   'https://script.google.com/macros/s/AKfycbx3-9aFMsFUoIc0ZQK5K1Vg81j8l1lLTbdj8eY5zhEf3DdVvooT53hAyjdg1FJ6Mqvx/exec' },
+        admin:   { sheet: 'https://docs.google.com/spreadsheets/d/1Yxpxvw8wIXiQfDKRMLoor1LRozCyVYoj25MG_mwmAEA/edit',
+                   api:   'https://script.google.com/a/macros/mobidoo.co.kr/s/AKfycbxOvVGSbCWwzuj37zC5yoUC3qOu5OQnj8HVb5SD95DeMpu3MUxpkujGtjP1p1wtQL8X/exec' }
       }
     };
+
     function openDashboard(key)       { window.open(HUB_LINKS.dashboards[key].webapp, '_blank'); }
     function openDashboardScript(key) { window.open(HUB_LINKS.dashboards[key].script, '_blank'); }
     function openDataSheet(key)       { window.open(HUB_LINKS.data[key].sheet, '_blank'); }
+
+    // 마지막 업데이트일 fetch
+    async function fetchLastUpdated(key) {
+      const el = document.getElementById('updated-' + key);
+      const url = HUB_LINKS.data[key].api;
+      try {
+        const res = await fetch(url);
+        const json = await res.json();
+        if (json.lastUpdated) {
+          el.textContent = '최근 업데이트: ' + json.lastUpdated;
+          el.classList.add('loaded');
+        } else {
+          el.textContent = '날짜 정보 없음';
+          el.classList.add('error');
+        }
+      } catch (e) {
+        el.textContent = '불러오기 실패';
+        el.classList.add('error');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      ['live', 'product', 'admin'].forEach(fetchLastUpdated);
+    });
   </script>
 </body>
 </html>
