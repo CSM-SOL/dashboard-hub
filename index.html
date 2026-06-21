@@ -337,20 +337,13 @@
     function openDashboardScript(key) { window.open(HUB_LINKS.dashboards[key].script, '_blank'); }
     function openDataSheet(key)       { window.open(HUB_LINKS.data[key].sheet, '_blank'); }
 
-    // 마지막 업데이트일 JSONP
-    function fetchLastUpdated(key) {
+    // 마지막 업데이트일 fetch
+    async function fetchLastUpdated(key) {
       const el = document.getElementById('updated-' + key);
       const url = HUB_LINKS.data[key].api;
-      const cbName = '_jsonp_' + key;
-
-      const timer = setTimeout(() => {
-        el.textContent = '불러오기 실패';
-        el.classList.add('error');
-        delete window[cbName];
-      }, 8000);
-
-      window[cbName] = function(json) {
-        clearTimeout(timer);
+      try {
+        const res = await fetch(url, { redirect: 'follow' });
+        const json = await res.json();
         if (json.lastUpdated) {
           el.textContent = '최근 데이터: ' + json.lastUpdated;
           el.classList.add('loaded');
@@ -358,19 +351,10 @@
           el.textContent = '날짜 정보 없음';
           el.classList.add('error');
         }
-        delete window[cbName];
-        script.remove();
-      };
-
-      const script = document.createElement('script');
-      script.src = url + '?callback=' + cbName;
-      script.onerror = () => {
-        clearTimeout(timer);
+      } catch (e) {
         el.textContent = '불러오기 실패';
         el.classList.add('error');
-        delete window[cbName];
-      };
-      document.head.appendChild(script);
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
